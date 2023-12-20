@@ -14,11 +14,20 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddAuthentication()
+    .AddFacebook(facebookOptions =>
+    {
+        facebookOptions.ClientId = builder.Configuration["Authentication:Facebook:ClientId"];
+        facebookOptions.ClientSecret = builder.Configuration["Authentication:Facebook:ClientSecret"];
+        facebookOptions.AccessDeniedPath = "/Home/Error";
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseMigrationsEndPoint();
 }
 else
