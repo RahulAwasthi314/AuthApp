@@ -20,6 +20,11 @@ builder.Services.AddAuthentication()
         facebookOptions.ClientId = builder.Configuration["Authentication:Facebook:ClientId"];
         facebookOptions.ClientSecret = builder.Configuration["Authentication:Facebook:ClientSecret"];
         facebookOptions.AccessDeniedPath = "/Home/Error";
+    })
+    .AddMicrosoftAccount(microsoftOptions =>
+    {
+        microsoftOptions.ClientId = builder.Configuration["Authentication:Microsoft:ClientId"];
+        microsoftOptions.ClientSecret = builder.Configuration["Authentication:Microsoft:ClientSecret"];
     });
 
 var app = builder.Build();
