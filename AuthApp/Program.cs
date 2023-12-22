@@ -30,6 +30,11 @@ builder.Services.AddAuthentication()
     {
         twitterOptions.ClientId = builder.Configuration["Authentication:Twitter:ClientId"];
         twitterOptions.ClientSecret = builder.Configuration["Authentication:Twitter:ClientSecret"];
+    })
+    .AddLinkedIn(linkedInOptions =>
+    {
+        linkedInOptions.ClientId = builder.Configuration["Authentication:LinkedIn:ClientId"];
+        linkedInOptions.ClientSecret = builder.Configuration["Authentication:LinkedIn:ClientSecret"];
     });
 
 var app = builder.Build();
