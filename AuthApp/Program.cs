@@ -33,6 +33,9 @@ else
     app.UseHsts();
 }
 
+// Apply Pending migration before running application
+ApplyMigrationExtension.ApplyPendingMigrations(app.Services);
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
