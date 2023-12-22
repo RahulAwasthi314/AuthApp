@@ -25,6 +25,11 @@ builder.Services.AddAuthentication()
     {
         microsoftOptions.ClientId = builder.Configuration["Authentication:Microsoft:ClientId"];
         microsoftOptions.ClientSecret = builder.Configuration["Authentication:Microsoft:ClientSecret"];
+    })
+    .AddTwitter(twitterOptions =>
+    {
+        twitterOptions.ClientId = builder.Configuration["Authentication:Twitter:ClientId"];
+        twitterOptions.ClientSecret = builder.Configuration["Authentication:Twitter:ClientSecret"];
     });
 
 var app = builder.Build();
