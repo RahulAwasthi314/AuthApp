@@ -1,4 +1,5 @@
 using AuthApp.Data;
+using AuthApp.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,28 +15,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddAuthentication()
-    .AddFacebook(facebookOptions =>
-    {
-        facebookOptions.ClientId = builder.Configuration["Authentication:Facebook:ClientId"];
-        facebookOptions.ClientSecret = builder.Configuration["Authentication:Facebook:ClientSecret"];
-        facebookOptions.AccessDeniedPath = "/Home/Error";
-    })
-    .AddMicrosoftAccount(microsoftOptions =>
-    {
-        microsoftOptions.ClientId = builder.Configuration["Authentication:Microsoft:ClientId"];
-        microsoftOptions.ClientSecret = builder.Configuration["Authentication:Microsoft:ClientSecret"];
-    })
-    .AddTwitter(twitterOptions =>
-    {
-        twitterOptions.ClientId = builder.Configuration["Authentication:Twitter:ClientId"];
-        twitterOptions.ClientSecret = builder.Configuration["Authentication:Twitter:ClientSecret"];
-    })
-    .AddLinkedIn(linkedInOptions =>
-    {
-        linkedInOptions.ClientId = builder.Configuration["Authentication:LinkedIn:ClientId"];
-        linkedInOptions.ClientSecret = builder.Configuration["Authentication:LinkedIn:ClientSecret"];
-    });
+// Authetication services extension method
+OAuth.OAuthenticationExtension(builder.Services, builder.Configuration);
 
 var app = builder.Build();
 
